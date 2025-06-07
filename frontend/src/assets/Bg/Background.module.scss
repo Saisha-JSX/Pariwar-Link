@@ -1,0 +1,61 @@
+/* Background.module.scss */
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 0;
+}
+
+.container {
+  transform: rotate(-18deg);
+  height: 100vh;
+  position: relative;
+}
+
+.imageList {
+  display: flex;
+  flex-direction: column;
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.scrollUp {
+  animation-name: scrollUp;
+}
+
+.scrollDown {
+  animation-name: scrollDown;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+@keyframes scrollUp {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scrollDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}

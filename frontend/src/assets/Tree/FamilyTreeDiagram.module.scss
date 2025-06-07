@@ -1,0 +1,62 @@
+.treeContainer {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.tree {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+}
+
+.node {
+  stroke: white;
+  stroke-width: 2;
+}
+
+.nodeMain {
+  fill: #4a90e2; // Blue
+}
+
+.nodeParent1 {
+  fill: #f39c12; // Orange
+}
+
+.nodeParent2 {
+  fill: #e74c3c; // Red
+}
+
+.nodeGP1 {
+  fill: #2ecc71; // Green
+}
+
+.nodeGP2 {
+  fill: #9b59b6; // Purple
+}
+
+.nodeGP3 {
+  fill: #1abc9c; // Teal
+}
+
+.nodeGP4 {
+  fill: #e67e22; // Deep Orange
+}
+
+.label {
+  font-size: 0.9rem;
+  fill: #fff;
+  font-weight: bold;
+  dominant-baseline: middle;
+}
+
+.labelMain {
+  @extend .label;
+  font-size: 1rem;
+}
+
+.line {
+  stroke: #7f8c8d;
+  stroke-width: 2;
+}
