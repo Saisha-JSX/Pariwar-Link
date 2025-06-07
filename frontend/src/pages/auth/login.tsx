@@ -53,10 +53,19 @@ const Login: React.FC = () => {
         />
 
         <div className={styles.links}>
-          <a href="/forgot-password">Forgot password?</a>
+          <a href="/forgot-password" className={styles.link}>Forgot password?</a>
         </div>
 
         <button type="submit" className={styles.submitBtn}>Login</button>
+
+        <div className={styles.links}>
+          <p className={styles.paragraph}>
+            Don't have an account?{' '}
+            <a href="/signup" className={styles.switchLink}>
+              Sign up
+            </a>
+          </p>
+        </div>
 
         <div className={styles.separator}>or</div>
 
