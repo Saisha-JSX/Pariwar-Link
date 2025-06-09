@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiLogIn } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import styles from './Navbar.module.scss';
 
 const Navbar: React.FC = () => {
@@ -8,13 +9,13 @@ const Navbar: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.logo}>Pariwar Link</div>
         <div className={styles.links}>
-          <button className={styles.login}>
+          <Link to="/login" className={styles.login}>
             Login
-          </button>
-          <button className={styles.signup}>
+          </Link>
+          <Link to="/signup" className={styles.signup}>
             <FiLogIn className={styles.icon} />
             Sign Up
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
