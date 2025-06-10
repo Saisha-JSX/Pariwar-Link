@@ -75,7 +75,7 @@ const Signup: React.FC = () => {
     setTimeout(() => {
       setLoading(false);
       toast.success('User Register successful.');
-      navigate('/step');  
+      navigate('/profile-setup');  
     }, 1000);
   };
 
