@@ -6,6 +6,7 @@ import Signup from './pages/auth/signup';
 import ProfileSetup from './pages/auth/profile-setup';
 import Dashboard from './pages/Dashboard/Layout';
 import FamilyTree from './pages/Dashboard/FamilyTree/index';
+import Profile from './pages/Dashboard/Profile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Navigate to="family" replace />} />
           <Route path="family" element={<FamilyTree />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
 
         {/* Optional fallback */}
