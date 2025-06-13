@@ -1,94 +1,190 @@
 import React, { useState } from 'react';
 import styles from './Profile.module.scss';
-import { FaUser, FaPhone, FaInfoCircle } from 'react-icons/fa';
+import { FaUser, FaPhoneAlt , FaInfoCircle } from 'react-icons/fa';
 
 const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'basic' | 'contact' | 'additional'>('basic');
+  const [editMode, setEditMode] = useState(false);
+  const [profileData, setProfileData] = useState({
+    firstName: 'John',
+    middleName: 'A.',
+    lastName: 'Doe',
+    gender: 'Male',
+    nickname: 'Johnny',
+    dob: '1990-01-01',
+    bio: 'Enthusiastic developer and lifelong learner.',
+    email: 'john@example.com',
+    phone: '+123456789',
+    address: '123 Main St, Cityville',
+    hobbies: ['Reading', 'Coding', 'Hiking'],
+    skills: ['React', 'Node.js', 'Python'],
+  });
+
+  const handleChange = (field: string, value: any) => {
+    setProfileData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleListChange = (field: 'hobbies' | 'skills', value: string) => {
+    setProfileData((prev) => ({
+      ...prev,
+      [field]: value.split(',').map((v) => v.trim()),
+    }));
+  };
 
   const renderContent = () => {
     switch (activeTab) {
       case 'basic':
         return (
           <div className={styles.sectionContent}>
-            <button className={styles.editButton}>Edit</button>
+            {!editMode && (
+              <button className={styles.editButton} onClick={() => setEditMode(true)}>
+                Edit
+              </button>
+            )}
             <div className={styles.fieldGrid}>
-              <div className={styles.field}>
-                <div className={styles.label}>First Name</div>
-                <div className={styles.value}>John</div>
-              </div>
-              <div className={styles.field}>
-                <div className={styles.label}>Middle Name</div>
-                <div className={styles.value}>A.</div>
-              </div>
-              <div className={styles.field}>
-                <div className={styles.label}>Last Name</div>
-                <div className={styles.value}>Doe</div>
-              </div>
-              <div className={styles.field}>
-                <div className={styles.label}>Gender</div>
-                <div className={styles.value}>Male</div>
-              </div>
-              <div className={styles.field}>
-                <div className={styles.label}>Nickname</div>
-                <div className={styles.value}>Johnny</div>
-              </div>
-              <div className={styles.field}>
-                <div className={styles.label}>Date of Birth</div>
-                <div className={styles.value}>1990-01-01</div>
-              </div>
+              {['firstName', 'middleName', 'lastName', 'gender', 'nickname', 'dob'].map((key) => (
+                <div className={styles.field} key={key}>
+                  <div className={styles.label}>{key.replace(/^\w/, (c) => c.toUpperCase())}</div>
+                  {editMode ? (
+                    <input
+                      className={styles.input}
+                      value={(profileData as any)[key]}
+                      onChange={(e) => handleChange(key, e.target.value)}
+                    />
+                  ) : (
+                    <div className={styles.value}>{(profileData as any)[key]}</div>
+                  )}
+                </div>
+              ))}
               <div className={styles.field} style={{ gridColumn: 'span 2' }}>
                 <div className={styles.label}>Bio</div>
-                <div className={styles.value}>Enthusiastic developer and lifelong learner.</div>
+                {editMode ? (
+                  <textarea
+                    className={styles.textarea}
+                    value={profileData.bio}
+                    onChange={(e) => handleChange('bio', e.target.value)}
+                  />
+                ) : (
+                  <div className={styles.value}>{profileData.bio}</div>
+                )}
               </div>
             </div>
+            {editMode && (
+              <div className={styles.buttonGroup}>
+                <button className={styles.saveButton} onClick={() => setEditMode(false)}>
+                  Save
+                </button>
+                <button className={styles.cancelButton} onClick={() => setEditMode(false)}>
+                  Cancel
+                </button>
+              </div>
+            )}
           </div>
         );
       case 'contact':
         return (
           <div className={styles.sectionContent}>
-            <button className={styles.editButton}>Edit</button>
+            {!editMode && (
+              <button className={styles.editButton} onClick={() => setEditMode(true)}>
+                Edit
+              </button>
+            )}
             <div className={styles.fieldGrid}>
-              <div className={styles.field}>
-                <div className={styles.label}>Email</div>
-                <div className={styles.value}>john@example.com</div>
-              </div>
-              <div className={styles.field}>
-                <div className={styles.label}>Phone</div>
-                <div className={styles.value}>+123456789</div>
-              </div>
+              {['email', 'phone'].map((key) => (
+                <div className={styles.field} key={key}>
+                  <div className={styles.label}>{key.replace(/^\w/, (c) => c.toUpperCase())}</div>
+                  {editMode ? (
+                    <input
+                      className={styles.input}
+                      value={(profileData as any)[key]}
+                      onChange={(e) => handleChange(key, e.target.value)}
+                    />
+                  ) : (
+                    <div className={styles.value}>{(profileData as any)[key]}</div>
+                  )}
+                </div>
+              ))}
               <div className={styles.field} style={{ gridColumn: 'span 2' }}>
                 <div className={styles.label}>Address</div>
-                <div className={styles.value}>123 Main St, Cityville</div>
+                {editMode ? (
+                  <input
+                    className={styles.input}
+                    value={profileData.address}
+                    onChange={(e) => handleChange('address', e.target.value)}
+                  />
+                ) : (
+                  <div className={styles.value}>{profileData.address}</div>
+                )}
               </div>
             </div>
+            {editMode && (
+              <div className={styles.buttonGroup}>
+                <button className={styles.saveButton} onClick={() => setEditMode(false)}>
+                  Save
+                </button>
+                <button className={styles.cancelButton} onClick={() => setEditMode(false)}>
+                  Cancel
+                </button>
+              </div>
+            )}
           </div>
         );
       case 'additional':
         return (
           <div className={styles.sectionContent}>
-            <button className={styles.editButton}>Edit</button>
+            {!editMode && (
+              <button className={styles.editButton} onClick={() => setEditMode(true)}>
+                Edit
+              </button>
+            )}
             <div className={styles.fieldGrid}>
               <div className={styles.field}>
                 <div className={styles.label}>Hobbies</div>
-                <div className={styles.value}>
-                  {['Reading', 'Coding', 'Hiking'].map((hobby) => (
-                    <span key={hobby} className={styles.valueTag}>
-                      {hobby}
-                    </span>
-                  ))}
-                </div>
+                {editMode ? (
+                  <input
+                    className={styles.input}
+                    value={profileData.hobbies.join(', ')}
+                    onChange={(e) => handleListChange('hobbies', e.target.value)}
+                  />
+                ) : (
+                  <div className={styles.value}>
+                    {profileData.hobbies.map((hobby) => (
+                      <span key={hobby} className={styles.valueTag}>
+                        {hobby}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className={styles.field}>
                 <div className={styles.label}>Skills</div>
-                <div className={styles.value}>
-                  {['React', 'Node.js', 'Python'].map((skill) => (
-                    <span key={skill} className={styles.valueTag}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+                {editMode ? (
+                  <input
+                    className={styles.input}
+                    value={profileData.skills.join(', ')}
+                    onChange={(e) => handleListChange('skills', e.target.value)}
+                  />
+                ) : (
+                  <div className={styles.value}>
+                    {profileData.skills.map((skill) => (
+                      <span key={skill} className={styles.valueTag}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
+            {editMode && (
+              <div className={styles.buttonGroup}>
+                <button className={styles.saveButton} onClick={() => setEditMode(false)}>
+                  Save
+                </button>
+                <button className={styles.cancelButton} onClick={() => setEditMode(false)}>
+                  Cancel
+                </button>
+              </div>
+            )}
           </div>
         );
       default:
@@ -120,7 +216,7 @@ const Profile: React.FC = () => {
               onClick={() => setActiveTab('contact')}
               className={`${styles.sidebarItem} ${activeTab === 'contact' ? styles.active : ''}`}
             >
-              <FaPhone /> <span className={styles.sidebarText}>Contact</span>
+              <FaPhoneAlt  /> <span className={styles.sidebarText}>Contact</span>
             </li>
             <li
               onClick={() => setActiveTab('additional')}
