@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/auth/login';
 import Signup from './pages/auth/signup';
+import ForgotPassword from './pages/auth/ForgotPassword';
 import ProfileSetup from './pages/auth/profile-setup';
 import Dashboard from './pages/Dashboard/Layout';
 import FamilyTree from './pages/Dashboard/FamilyTree/index';
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/profile-setup" element={<ProfileSetup />} />
 
         {/* Dashboard layout with nested routes */}
