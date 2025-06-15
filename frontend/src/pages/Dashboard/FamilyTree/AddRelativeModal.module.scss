@@ -1,0 +1,192 @@
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;   /* vertical center */
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  z-index: 1000;
+  animation: fadeInBackdrop 0.3s ease forwards;
+}
+
+.modalContent {
+  position: relative;
+  background: #fff;
+  padding: 24px 28px 28px;  /* reduced padding */
+  border-radius: 16px;
+  width: 420px;
+  max-width: 100%;
+  max-height: 80vh;      /* limit max height */
+  overflow-y: auto;     /* scroll inside modal if content too tall */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  font-family: "Inter", sans-serif;
+  animation: slideUpFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  outline: none;
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+
+  &:hover,
+  &:focus {
+    color: #333;
+    outline: none;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #444;
+  font-weight: 600;
+  text-align: left;
+}
+
+.input,
+.select {
+  margin-top: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: var(--pl-primary, #007aff);
+    box-shadow: 0 0 5px rgba(0, 122, 255, 0.4);
+  }
+}
+
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.toggleLabel {
+  font-weight: 600;
+  font-size: 14px;
+  color: #444;
+  min-width: 100px;
+  user-select: none;
+}
+
+.toggleTextLeft,
+.toggleTextRight {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  user-select: none;
+  width: 50px;
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.3s, font-weight 0.3s;
+}
+
+.toggleSwitch {
+  position: relative;
+  width: 50px;
+  height: 28px;
+  background: #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  transition: background 0.3s;
+  margin: 0 8px;
+}
+
+.toggleSwitch.active {
+  background: var(--pl-primary, #007aff);
+}
+
+.toggleKnob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  transition: left 0.3s;
+}
+
+.toggleSwitch.active .toggleKnob {
+  left: 25px;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btnCancel,
+.btnSubmit {
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btnCancel {
+  background: #f0f0f0;
+  color: #555;
+
+  &:hover,
+  &:focus {
+    background: #d6d6d6;
+    outline: none;
+  }
+}
+
+.btnSubmit {
+  background: var(--pl-primary, #007aff);
+  color: white;
+}
+
+/* Animations (optional) */
+@keyframes fadeInBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

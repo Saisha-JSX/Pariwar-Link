@@ -183,64 +183,6 @@
   }
 }
 
-.googleBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.7rem;
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  background: white;
-  color: #444;
-  transition: background-color 0.25s ease;
-
-  img {
-    width: 20px;
-    height: 20px;
-  }
-
-  &:hover:not(:disabled) {
-    background-color: #f0f0f0;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-}
-
-/* =====================
-   Separators & Dividers
-===================== */
-.separator {
-  text-align: center;
-  color: #aaa;
-  font-size: 0.9rem;
-  margin: 0.75rem 0;
-  position: relative;
-
-  &::before,
-  &::after {
-    content: '';
-    height: 1px;
-    background: #ccc;
-    position: absolute;
-    top: 50%;
-    width: 35%;
-  }
-
-  &::before {
-    left: 0;
-  }
-
-  &::after {
-    right: 0;
-  }
-}
 
 /* =====================
    Feedback & Error Messages

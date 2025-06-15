@@ -94,13 +94,6 @@ const handleSubmit = (e: React.FormEvent) => {
             </a>
           </p>
         </div>
-
-        <div className={styles.separator}>or</div>
-
-        <button type="button" className={styles.googleBtn} disabled={loading}>
-          <img src="/google-icon.svg" alt="Google" />
-          Register with Google
-        </button>
       </form>
     </div>
   );
