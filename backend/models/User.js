@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: false, 
   },
   otp: {
     code: String,
