@@ -1,28 +1,20 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const { sendEmail } = require('../utils/email');
+const { generateOTP } = require('../utils/otp');
+const otpEmailTemplate = require('../utils/otpEmailTemplate');
 
-// Configure nodemailer transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,    // your gmail address from .env
-    pass: process.env.GMAIL_PASS,    // your gmail app password from .env
-  },
-});
-
-// Generate 6-digit OTP
-const generateOTP = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-};
+// Helper: Basic email format validation
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 exports.sendOtp = async (req, res) => {
-  const { email } = req.body;
+  const email = req.body.email?.trim();
   if (!email) return res.status(400).json({ message: 'Email is required' });
+  if (!isValidEmail(email)) return res.status(400).json({ message: 'Invalid email format' });
 
   const otpCode = generateOTP();
-  const otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes expiry
+  const otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
 
   try {
     let user = await User.findOne({ email });
@@ -30,20 +22,20 @@ exports.sendOtp = async (req, res) => {
     if (!user) {
       user = await User.create({ email, otp: { code: otpCode, expiresAt: otpExpiry } });
     } else {
+      if (user.otp && user.otp.expiresAt > Date.now()) {
+        return res.status(429).json({ message: 'OTP already sent. Please wait before requesting a new one.' });
+      }
       user.otp = { code: otpCode, expiresAt: otpExpiry };
       await user.save();
     }
 
-    // Prepare email data
-    const mailOptions = {
-      from: `"PariwarLink" <${process.env.GMAIL_USER}>`,
+    const htmlContent = otpEmailTemplate(otpCode);
+
+    await sendEmail({
       to: email,
       subject: 'Your OTP Code for PariwarLink',
-      text: `Your OTP code is ${otpCode}. It expires in 5 minutes.`,
-    };
-
-    // Send OTP email
-    await transporter.sendMail(mailOptions);
+      html: htmlContent,
+    });
 
     res.status(200).json({ message: 'OTP sent to email' });
   } catch (error) {
@@ -71,7 +63,7 @@ exports.verifyOtpAndRegister = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
-    user.otp = undefined; // clear OTP
+    user.otp = undefined;
     await user.save();
 
     res.status(201).json({ message: 'User registered successfully' });
@@ -83,14 +75,20 @@ exports.verifyOtpAndRegister = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
 
   try {
     const user = await User.findOne({ email });
-    if (!user || !user.password) return res.status(400).json({ message: 'User not found or incomplete signup' });
+    if (!user || !user.password) {
+      return res.status(400).json({ message: 'User not found or incomplete signup' });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: '7d',
