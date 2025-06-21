@@ -3,12 +3,15 @@
   display: flex;
   justify-content: center;
   overflow-x: auto;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .tree {
   width: 100%;
   max-width: 1000px;
   height: auto;
+  display: block;
 }
 
 .node {
@@ -17,31 +20,31 @@
 }
 
 .nodeMain {
-  fill: #4a90e2; // Blue
+  fill: #4a90e2;
 }
 
 .nodeParent1 {
-  fill: #f39c12; // Orange
+  fill: #f39c12;
 }
 
 .nodeParent2 {
-  fill: #e74c3c; // Red
+  fill: #e74c3c;
 }
 
 .nodeGP1 {
-  fill: #2ecc71; // Green
+  fill: #2ecc71;
 }
 
 .nodeGP2 {
-  fill: #9b59b6; // Purple
+  fill: #9b59b6;
 }
 
 .nodeGP3 {
-  fill: #1abc9c; // Teal
+  fill: #1abc9c;
 }
 
 .nodeGP4 {
-  fill: #e67e22; // Deep Orange
+  fill: #e67e22;
 }
 
 .label {
@@ -52,8 +55,10 @@
 }
 
 .labelMain {
-  @extend .label;
   font-size: 1rem;
+  fill: #fff;
+  font-weight: bold;
+  dominant-baseline: middle;
 }
 
 .line {

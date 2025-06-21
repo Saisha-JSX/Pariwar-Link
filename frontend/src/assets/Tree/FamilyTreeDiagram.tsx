@@ -4,7 +4,7 @@ import styles from './FamilyTreeDiagram.module.scss';
 const FamilyTreeDiagram: React.FC = () => {
   return (
     <div className={styles.treeContainer}>
-      <svg viewBox="0 0 1000 700" className={styles.tree}>
+      <svg viewBox="0 0 1000 420" className={styles.tree} preserveAspectRatio="xMidYMid meet">
         {/* You */}
         <circle cx="500" cy="80" r="40" className={`${styles.node} ${styles.nodeMain}`} />
         <text x="500" y="85" className={styles.labelMain} textAnchor="middle">You</text>

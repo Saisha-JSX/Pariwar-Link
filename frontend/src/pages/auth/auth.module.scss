@@ -122,6 +122,15 @@
   }
 }
 
+.fieldError {
+  color: var(--pl-error, red);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+
 /* =====================
    Links & Navigation
 ===================== */
@@ -150,9 +159,6 @@
   text-decoration: underline;
   cursor: pointer;
 
-  &:hover {
-    color: #005bb5;
-  }
 }
 
 /* =====================

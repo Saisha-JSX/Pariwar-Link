@@ -16,9 +16,38 @@
 }
 
 .left {
+  cursor: pointer;
+}
+
+.pariwarLink {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--pl-primary);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--pl-font-family);
+  transition: color 0.25s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--pl-secondary);
+    outline: none;
+  }
+}
+
+.right {
   display: flex;
   align-items: center;
+  gap: 20px;
+}
+
+.profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   cursor: pointer;
+  user-select: none;
 
   &:focus-visible {
     outline: 2px solid var(--pl-accent);
@@ -26,73 +55,54 @@
   }
 }
 
-.logo {
-  height: 40px;
-  width: auto;
-  user-select: none;
-}
-
-.right {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.iconButton {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1rem;
-  background: none;
-  border: none;
-  color: var(--pl-text);
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background 0.25s ease, color 0.25s ease;
-
-  svg {
-    font-size: 1.3rem;
-  }
-
-  &:hover,
-  &:focus-visible {
-    background-color: var(--pl-accent-light);
-    color: var(--pl-accent-dark);
-    outline: none;
-  }
-}
-
-.languageLabel {
-  font-weight: 500;
-  user-select: none;
-}
-
-.user {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  cursor: pointer;
-
-  &:hover .avatar,
-  &:focus-visible .avatar {
-    transform: scale(1.1);
-  }
-}
-
-.userName {
-  font-weight: 500;
-  font-size: 1rem;
-  color: var(--pl-text);
-  white-space: nowrap;
-  user-select: none;
-}
-
 .avatar {
   height: 38px;
   width: 38px;
   border-radius: 50%;
   object-fit: cover;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  user-select: none;
+  transition: transform 0.25s ease;
+}
+
+.chevron {
+  font-size: 0.85rem;
+  color: var(--pl-text-secondary);
+  transition: transform 0.25s ease;
+}
+
+.profile:focus-visible .chevron,
+.profile:hover .chevron {
+  color: var(--pl-primary);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  min-width: 160px;
+  z-index: 20;
+  font-family: var(--pl-font-family);
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  color: var(--pl-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  svg {
+    font-size: 1.1rem;
+    color: var(--pl-primary);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--pl-accent-light);
+    outline: none;
+  }
 }
