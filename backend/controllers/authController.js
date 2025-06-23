@@ -100,3 +100,9 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// ✅ Logout controller
+exports.logout = async (req, res) => {
+  // Since JWTs are stateless, the client just needs to delete it
+  res.status(200).json({ message: 'Logout successful. Please clear the token on the client side.' });
+};
